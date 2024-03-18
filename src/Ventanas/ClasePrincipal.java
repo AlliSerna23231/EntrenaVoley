@@ -10,11 +10,13 @@ package Ventanas;
  */
 public class ClasePrincipal {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Crear una instancia de la ventana de login
+        /*VentanaLogin ventanaLogin = new VentanaLogin();
+        
+        // Mostrar la ventana de login
+        ventanaLogin.setVisible(true);*/
     }
+    
     
 }
