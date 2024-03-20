@@ -5,6 +5,7 @@
 package Ventanas;
 
 
+import Metodos.Imagenes;
 import Metodos.GuardarDatos;
 import Metodos.ValidarDatos;
 import User.Docente;
@@ -30,6 +31,10 @@ public class ventanaRegistro extends javax.swing.JFrame {
         // Cargar una imagen como icono desde el paquete "img" y establecerla en la ventana
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/Logon_sinFondo.png"));
         this.setIconImage(icono.getImage());
+        
+        //Redimensionar el icono
+        Imagenes iconVolver = new Imagenes();
+        iconVolver.setIcono("/img/flecha.png", 40, 40);
 
         //Fuente
         /*Metodos.Font sackbonesFont = new Metodos.Font();
@@ -123,6 +128,7 @@ public class ventanaRegistro extends javax.swing.JFrame {
             }
         });
 
+        btn_Volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/flecha.png"))); // NOI18N
         btn_Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_VolverActionPerformed(evt);
@@ -163,9 +169,9 @@ public class ventanaRegistro extends javax.swing.JFrame {
                             .addComponent(txt_Contra, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_Contra2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(18, 18, 18)
                         .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
+                        .addGap(69, 69, 69)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -180,14 +186,11 @@ public class ventanaRegistro extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
@@ -247,7 +250,7 @@ public class ventanaRegistro extends javax.swing.JFrame {
         String contra = txt_Contra.getText();
         String contra2 = txt_Contra2.getText();
         
-        //Suponer que hay una lista existente con datos
+        //Lista
         List<Docente> listaUsuarios = obtenerListaUsuariosExistente(); 
 
         ValidarDatos validador = new ValidarDatos();
@@ -257,7 +260,7 @@ public class ventanaRegistro extends javax.swing.JFrame {
             // Llamar al método para guardar el nuevo docente en el archivo
             GuardarDatos guardador = new GuardarDatos();
             guardador.guardarDocentesEnArchivo(List.of(nuevoDocente));
-            JOptionPane.showMessageDialog(null, "Felicidades, tus datos han sido guardados exitosamente.", "Confirmarción", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Felicidades, tus datos han sido guardados exitosamente.");
             // Limpiar campos de texto después de guardar
             txt_NombreC.setText("");
             txt_Crede.setText("");
@@ -275,7 +278,7 @@ public class ventanaRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ContraActionPerformed
 
     private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
-       
+        //Ir a la ventana Inicial
     }//GEN-LAST:event_btn_VolverActionPerformed
 
     private void txt_CorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CorreoActionPerformed

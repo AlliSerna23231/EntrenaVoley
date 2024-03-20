@@ -1,6 +1,7 @@
 package Metodos;
 
 import User.Docente;
+import User.Jugador;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,27 @@ public class GuardarDatos {
             System.out.println("Datos de docentes guardados correctamente en el archivo Docente.txt");
         } catch (IOException e) {
             System.err.println("Error al guardar los datos de docentes: " + e.getMessage());
+        }
+    }
+    
+    public void guardarJugadoresEnArchivo(List<Jugador> jugadores) {
+        try (FileWriter writer = new FileWriter("Jugadores.txt", true)) {
+            for (Jugador jugador : jugadores) {
+                String linea = jugador.getNombreCompletoJ() + "," +
+                               jugador.getDocumento() + "," +
+                               jugador.getANacimiento() + "," +
+                               jugador.getNivelRendimiento() + "," +
+                               jugador.getPosición() + "," +
+                               jugador.getRuta() + "," +
+                               jugador.getNombreFoto() + "," +
+                               jugador.getCodigo() + "\n";
+
+                writer.write(linea);
+
+            }
+            System.out.println("Datos de jugadores guardados correctamente en el archivo Jugadores.txt");
+        } catch (IOException e) {
+            System.err.println("Error al guardar los datos de jugadores: " + e.getMessage());
         }
     }
 }

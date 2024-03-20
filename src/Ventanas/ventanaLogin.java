@@ -4,6 +4,7 @@
  */
 package Ventanas;
 
+import Metodos.Imagenes;
 import Metodos.ValidarDatos;
 import User.Docente;
 import javax.swing.ImageIcon;
@@ -26,6 +27,10 @@ public class ventanaLogin extends javax.swing.JFrame {
         // Cargar una imagen como icono desde el paquete "img" y establecerla en la ventana
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/Logon_sinFondo.png"));
         this.setIconImage(icono.getImage());
+        
+        //Redimensionar el icono
+        Imagenes iconVolver = new Imagenes();
+        iconVolver.setIcono("/img/flecha.png", 40, 40); 
     }
 
     /**
@@ -49,6 +54,7 @@ public class ventanaLogin extends javax.swing.JFrame {
         txt_Crede = new javax.swing.JPasswordField();
         txt_Correo = new javax.swing.JTextField();
         jHyperR = new javax.swing.JLabel();
+        btn_Volver = new javax.swing.JButton();
         FondoL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,7 +92,7 @@ public class ventanaLogin extends javax.swing.JFrame {
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Rockwell", 0, 16)); // NOI18N
-        jLabel4.setText("Credenciales");
+        jLabel4.setText("Credencial");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 210, 100, -1));
 
         txt_Crede.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +119,15 @@ public class ventanaLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jHyperR, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 100, -1));
+
+        btn_Volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/flecha.png"))); // NOI18N
+        btn_Volver.setPreferredSize(new java.awt.Dimension(70, 71));
+        btn_Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_VolverActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 46, 41));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 460, 380));
 
@@ -174,6 +189,10 @@ public class ventanaLogin extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jHyperRMouseClicked
 
+    private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
+        //Ir a la ventana Inicial
+    }//GEN-LAST:event_btn_VolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -212,6 +231,7 @@ public class ventanaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FondoL;
     private javax.swing.JButton btn_Aceptar;
+    private javax.swing.JButton btn_Volver;
     private javax.swing.JLabel jHyperR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

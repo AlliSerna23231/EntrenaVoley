@@ -1,9 +1,15 @@
 package Metodos;
 
 import User.Docente;
+import User.Jugador;
+import static User.Jugador.obtenerListaUsuariosExistenteJ;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import java.util.List;
 
@@ -116,6 +122,98 @@ public class ValidarDatos {
         return null;
         
     }
+    
+    public String retornarNombreCJ(String id, String codigo) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Jugadores.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                String idAlmacenado = partes[1].trim(); // Recuperamos el documento almacenado
+                String codigoAlmacenado = partes[5].trim(); // Recuperamos el código almacenado
+                if (id.equals(idAlmacenado) && codigo.equals(codigoAlmacenado)) {
+                    return partes[0].trim(); // Devolvemos el nombre del jugador
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo Jugadores.txt: " + e.getMessage());
+        }
+        return null;
+    }
+
+    
+    public boolean validarDatosJ(String nombreCompletoJ, String documento, String añoNacimiento, String nivelRendimiento, String posición, String codigo, List<Jugador> listaJugadores) {
+        // Verificar si algún campo está vacío o nulo
+        if (nombreCompletoJ.isEmpty() || documento.isEmpty() || añoNacimiento.isEmpty() || nivelRendimiento.isEmpty() ||  codigo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Si algún campo está vacío, retornar falso
+        }
+        
+        // Verificar si el documento contiene solo números
+        if (!documento.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El documento debe contener solo números.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Si el documento no contiene solo números, retornar falso
+        }
+        
+        // Verificar si el código es un entero de 4 dígitos
+        if (!codigo.matches("\\d{4}")) {
+            JOptionPane.showMessageDialog(null, "El código debe ser un número de 4 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Si el código no es un entero de 4 dígitos, retornar falso
+        }
+        
+        // Verificar si el jugador ya existe en la lista de jugadores
+        for (Jugador jugador : listaJugadores) {
+            if (jugador.getDocumento().equals(documento)) {
+                JOptionPane.showMessageDialog(null, "El jugador ya está registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false; // Si el jugador ya existe, retornar falso
+            }
+        }
+        
+        // Verificar si la posición del jugador ha sido seleccionada
+        if ("Seleccionar".equals(posición)) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar la posición del jugador.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (añoNacimiento == null || añoNacimiento.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una fecha de nacimiento.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Verificar si el año de nacimiento es un número válido
+        try {
+            int añoNac = Integer.parseInt(añoNacimiento);
+            // Resto del código de validación aquí
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un año de nacimiento válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        // Si todas las validaciones pasan, retornar true
+        return true;
+    }
+
+    private boolean validarExistenciaJugador(String documento) {
+        // Leer el archivo de jugadores y verificar si el documento ya existe
+        try (BufferedReader br = new BufferedReader(new FileReader("Jugadores.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                String documentoAlmacenado = partes[1].trim(); // Obtener el documento almacenado en el archivo
+                if (documento.equals(documentoAlmacenado)) {
+                    // Si el documento coincide con uno almacenado, mostrar mensaje y retornar true
+                    JOptionPane.showMessageDialog(null, "El jugador ya está registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo Jugadores.txt: " + e.getMessage());
+        }
+        return false; // Si no se encontró el documento, retornar false
+    }
+    
+
+    
+    
 }
 
 
