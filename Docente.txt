@@ -1,5 +1,2 @@
-Allison Serna,a@elpoli.edu.co,1023,a8,2323,2323
-Emanuel V,E@elpoli.edu.co,4778,a10,2121,2121
-Sebastian,sebas@elpoli.edu.co,1000762620,1s,12345,12345
-Aleja,al@elpoli.edu.co,2525555,7a,2525,2525
-A,alñ@elpoli.edu.co,25259,710a,2828,2828
+Allis,allis@elpoli.edu.co,1023629824,23A,2323,2323
+Emanuel,emma@elpoli.edu.co,2545525,8a,2525,2525

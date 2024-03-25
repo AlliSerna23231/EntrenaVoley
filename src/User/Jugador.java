@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Jugador {
@@ -26,6 +27,14 @@ public class Jugador {
         this.nombreFoto = nombreFoto;
         this.codigo = codigo;
     }
+
+    public Jugador() {
+    }
+
+    public Jugador(String nombreCompletoJ, String documento, Date aNacimiento, String nivelRendimiento, String posición, String codigos, String rutaFoto, String nombreFoto) {
+    }
+
+   
 
     public String getNombreCompletoJ() {
         return nombreCompletoJ;

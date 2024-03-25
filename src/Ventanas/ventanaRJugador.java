@@ -6,6 +6,7 @@ package Ventanas;
 
 import Metodos.GuardarDatos;
 import Metodos.Imagenes;
+import Metodos.MEquipos;
 import Metodos.ValidarDatos;
 import User.Docente;
 import User.Jugador;
@@ -26,12 +27,13 @@ import javax.swing.JOptionPane;
 public class ventanaRJugador extends javax.swing.JFrame {
     private String rutaFoto;
     private String nombreFoto;
+    private String codEquipo;
 
 
     /**
      * Creates new form ventanaRJugador
      */
-    public ventanaRJugador() {
+    public ventanaRJugador(String codEquipo) {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -39,8 +41,23 @@ public class ventanaRJugador extends javax.swing.JFrame {
         // Cargar una imagen como icono desde el paquete "img" y establecerla en la ventana
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/Logon_sinFondo.png"));
         this.setIconImage(icono.getImage());
+        this.codEquipo = codEquipo; // Almacena el código del equipo seleccionado
+
+        System.out.println("codexx:" + codEquipo);
+        
+        MEquipos metodos = new MEquipos();
+        String[] datosEquipo = metodos.cargarEquipo(codEquipo);
+        if (datosEquipo != null) {
+            CodigoE.setText(codEquipo);
+        }
+        
+    
     }
 
+    private ventanaRJugador() {
+    }
+
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,8 +76,7 @@ public class ventanaRJugador extends javax.swing.JFrame {
         txt_NombreCJ = new javax.swing.JTextField();
         txt_Id = new javax.swing.JTextField();
         btn_Registrarse = new javax.swing.JButton();
-        lblApellido = new javax.swing.JLabel();
-        txt_Codigo = new javax.swing.JTextField();
+        CodigoE = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_Volver = new javax.swing.JButton();
         lbl_ImgJugador = new javax.swing.JLabel();
@@ -69,6 +85,7 @@ public class ventanaRJugador extends javax.swing.JFrame {
         btn_foto = new javax.swing.JButton();
         txt_cbo_Posiciones = new javax.swing.JComboBox<>();
         txt_jDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,14 +123,8 @@ public class ventanaRJugador extends javax.swing.JFrame {
             }
         });
 
-        lblApellido.setFont(new java.awt.Font("Rockwell", 0, 15)); // NOI18N
-        lblApellido.setText("Código");
-
-        txt_Codigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_CodigoActionPerformed(evt);
-            }
-        });
+        CodigoE.setFont(new java.awt.Font("Rockwell", 0, 17)); // NOI18N
+        CodigoE.setText("Código");
 
         jLabel6.setFont(new java.awt.Font("Rockwell", 0, 15)); // NOI18N
         jLabel6.setText("Posición");
@@ -156,54 +167,48 @@ public class ventanaRJugador extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Rockwell", 0, 15)); // NOI18N
+        jLabel4.setText("Código del Equipo:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(lblApellido)
-                                    .addComponent(txt_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(69, 69, 69))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btn_Registrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(166, 166, 166))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txt_NRA, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btn_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_ImgJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txt_NombreCJ, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(162, 162, 162)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_cbo_Posiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(69, Short.MAX_VALUE))))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_ImgJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_NombreCJ, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                .addComponent(txt_Id, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(txt_jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(CodigoE, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txt_cbo_Posiciones, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_NRA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_Registrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,40 +217,41 @@ public class ventanaRJugador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_ImgJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_foto)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(lblApellido))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel4))
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_NombreCJ, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                            .addComponent(CodigoE, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_cbo_Posiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txt_NRA, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                             .addComponent(txt_jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addComponent(btn_Registrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_ImgJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_foto)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btn_Registrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 620, 370));
@@ -271,32 +277,34 @@ public class ventanaRJugador extends javax.swing.JFrame {
         String nombreCompletoJ = txt_NombreCJ.getText();
         String documento = txt_Id.getText();
         Date fechaNacimiento = txt_jDateChooser.getDate();
-        String codigo = txt_Codigo.getText();
         String posición = (String) txt_cbo_Posiciones.getSelectedItem();
         String nivelRendimiento = txt_NRA.getText();
+  
         
-        
-        // Formatear la fecha en el formato deseado
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String aNacimiento = sdf.format(fechaNacimiento);
-        
+      
 
+
+        
+       
         //Lista Jugadores
         List<Jugador> listaJugadores = obtenerListaUsuariosExistenteJ();
         
         ValidarDatos validadorJ = new ValidarDatos();
-        if (validadorJ.validarDatosJ(nombreCompletoJ, documento, aNacimiento, nivelRendimiento, posición, codigo, listaJugadores)) {
+        if (validadorJ.validarDatosJ(nombreCompletoJ, documento, fechaNacimiento, nivelRendimiento, posición, listaJugadores)) {
             
-            Jugador nuevoJugador = new Jugador(nombreCompletoJ, documento, aNacimiento, nivelRendimiento, posición, codigo, rutaFoto, nombreFoto);
+             // Formatear la fecha en el formato deseado
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String aNacimiento = sdf.format(fechaNacimiento);
+       
+            Jugador nuevoJugador = new Jugador(nombreCompletoJ, documento, aNacimiento, nivelRendimiento, posición, codEquipo, rutaFoto, nombreFoto);
 
             GuardarDatos guardadorJ = new GuardarDatos();
             guardadorJ.guardarJugadoresEnArchivo(List.of(nuevoJugador));
-            JOptionPane.showMessageDialog(this, "El jugador: " + validadorJ.retornarNombreCJ(documento, codigo) + " ha sido registrado" );
+            JOptionPane.showMessageDialog(this, "El jugador: " + validadorJ.retornarNombreCJ(documento) + " ha sido registrado" );
             
             // Limpiar campos de texto después de guardar
             txt_NombreCJ.setText("");
             txt_Id.setText("");
-            txt_Codigo.setText("");
             txt_NRA.setText("");
             
             
@@ -311,12 +319,10 @@ public class ventanaRJugador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_RegistrarseActionPerformed
 
-    private void txt_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_CodigoActionPerformed
-
     private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
-        //Ir a la ventana menú
+        ventanaInfoE frame = new ventanaInfoE();
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_VolverActionPerformed
 
     private void txt_NRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NRAActionPerformed
@@ -384,6 +390,7 @@ public class ventanaRJugador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CodigoE;
     private javax.swing.JLabel Fondo;
     private javax.swing.JButton btn_Registrarse;
     private javax.swing.JButton btn_Volver;
@@ -391,14 +398,13 @@ public class ventanaRJugador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lbl_ImgJugador;
-    private javax.swing.JTextField txt_Codigo;
     private javax.swing.JTextField txt_Id;
     private javax.swing.JTextField txt_NRA;
     private javax.swing.JTextField txt_NombreCJ;

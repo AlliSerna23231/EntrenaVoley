@@ -1,0 +1,3 @@
+2525;rojas;Femenino;0
+8485;Blues;Masculino;0
+6996;Carnaval;Mixto;0

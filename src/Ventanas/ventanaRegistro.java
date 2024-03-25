@@ -278,7 +278,9 @@ public class ventanaRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ContraActionPerformed
 
     private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
-        //Ir a la ventana Inicial
+        ventanaInicial frame = new ventanaInicial();
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_VolverActionPerformed
 
     private void txt_CorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CorreoActionPerformed

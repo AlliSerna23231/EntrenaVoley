@@ -154,6 +154,9 @@ public class ventanaLogin extends javax.swing.JFrame {
         String contra = txt_Contra.getText();
         String credenciales = txt_Crede.getText();
         
+        ValidarDatos retornarid = new ValidarDatos();
+        String id = retornarid.obtenerIdUsuarioDesdeArchivo(correoInstitucional, credenciales, contra);
+        
         ValidarDatos validar = new ValidarDatos();
         if (validar.validarDatosInicio(correoInstitucional, contra, credenciales)){
             
@@ -161,7 +164,9 @@ public class ventanaLogin extends javax.swing.JFrame {
             Docente nuevoDocente = new Docente(correoInstitucional, credenciales, contra);
             //ir al home/menú
             JOptionPane.showMessageDialog(this, "Bienvenido(a), docente: " + validar.retornarNombreC(correoInstitucional, contra, credenciales));
-
+            Menu frame = new Menu(id);
+            frame.setVisible(true);
+            this.setVisible(false);
 
             
             txt_Crede.setText("");
@@ -190,7 +195,9 @@ public class ventanaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jHyperRMouseClicked
 
     private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
-        //Ir a la ventana Inicial
+        ventanaInicial frame = new ventanaInicial();
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_VolverActionPerformed
 
     /**

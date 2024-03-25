@@ -41,6 +41,9 @@ public class Docente {
         this.credenciales = credenciales;
         this.contra = contra;
     }
+
+    public Docente() {
+    }
     
 
     // Getters
@@ -115,5 +118,25 @@ public class Docente {
         }
         
         return listaUsuarios;
+    }
+    
+    // Método estático para obtener un usuario específico desde el archivo de texto basado en su ID
+    public static Docente obtenerUsuarioPorID(String idUsuario) {
+        Docente usuario = null;
+        try (BufferedReader br = new BufferedReader(new FileReader("Docente.txt"))) {
+            String linea;
+            // Leemos cada línea del archivo
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                // Si el ID del usuario en la línea coincide con el ID buscado, creamos el objeto y lo asignamos a 'usuario'
+                if (partes[2].equals(idUsuario)) {
+                    usuario = new Docente(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5]);
+                    break; // Terminamos la lectura después de encontrar el usuario
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo de errores de lectura del archivo
+        }
+        return usuario;
     }
 }
