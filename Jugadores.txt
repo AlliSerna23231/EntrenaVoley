@@ -1,1 +1,2 @@
-camilo,210552062,17/05/2006,1,Atacante,2541,C:\Users\allil\OneDrive\Imágenes\1.jpg,1.jpg
+camila,5451,17/03/2006,23,Armador,1025,null,null
+sofi,44514,19/03/2006,1,Armador,1023,null,null

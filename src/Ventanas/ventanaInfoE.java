@@ -6,13 +6,24 @@ package Ventanas;
 
 import Metodos.Imagenes;
 import Metodos.MEquipos;
+import User.Jugador;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -29,6 +40,7 @@ public class ventanaInfoE extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Train Volley");
         // Cargar una imagen como icono desde el paquete "img" y establecerla en la ventana
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/Logon_sinFondo.png"));
@@ -36,8 +48,8 @@ public class ventanaInfoE extends javax.swing.JFrame {
         Imagenes icon = new Imagenes();
         System.out.println("Código de equipo SELECCIONADO: " + codEquipo);
         this.codEquipo = codEquipo; // Almacena el código del equipo seleccionado
-
         
+               
        MEquipos metodos = new MEquipos();
         String[] datosEquipo = metodos.cargarEquipo(codEquipo);
         if (datosEquipo != null) {
@@ -45,7 +57,44 @@ public class ventanaInfoE extends javax.swing.JFrame {
             jCodigoE.setText(codEquipo);
             jTipoE.setText(datosEquipo[1]);
             jCantJ.setText(datosEquipo[2]);
+            
         }
+
+        
+        // Panel para mostrar los botones de jugadores
+        jListaJ.setLayout(new BoxLayout(jListaJ, BoxLayout.Y_AXIS));
+        jListaJ.setBorder(new EmptyBorder(10, 10, 10, 10));
+        add(new JScrollPane(jListaJ), BorderLayout.CENTER);
+        
+        List<Jugador> jugadoresEquipo = metodos.Jugadores(codEquipo);
+        System.out.println("Cantidad de jugadores en la lista: " + jugadoresEquipo.size()); // Agrega esta línea
+
+        for (Jugador jugador : jugadoresEquipo) {
+            JButton jugadorButton = new JButton(jugador.getNombreCompletoJ());
+            jugadorButton.setPreferredSize(new Dimension(120, 40));
+            jugadorButton.setMargin(new Insets(10, 10, 10, 10));
+            jugadorButton.setBackground(new Color(55, 100, 121));
+            jugadorButton.setForeground(Color.WHITE);
+
+
+            jugadorButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Aquí puedes agregar la lógica para manejar el evento de clic en el botón del jugador
+                    System.out.println("Jugador seleccionado: " + jugador.getNombreCompletoJ());
+                    // Puedes abrir la ventana del perfil del jugador aquí si es necesario
+                }
+            });
+
+            jListaJ.add(jugadorButton);
+            
+            
+        }
+
+        jListaJ.revalidate();
+        jListaJ.repaint();
+        
+
     }
     
     public ventanaInfoE() {
@@ -66,13 +115,14 @@ public class ventanaInfoE extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jInfoE = new javax.swing.JPanel();
+        jListaJ = new javax.swing.JPanel();
         jNombreE = new javax.swing.JLabel();
         jCodigoE = new javax.swing.JLabel();
         jTipoE = new javax.swing.JLabel();
         jCantJ = new javax.swing.JLabel();
         jAsistencia = new javax.swing.JButton();
-        jListaJ = new javax.swing.JScrollPane();
         jAgregarEstudiante = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,28 +132,24 @@ public class ventanaInfoE extends javax.swing.JFrame {
         jInfoE.setBackground(new java.awt.Color(255, 255, 255));
         jInfoE.setForeground(new java.awt.Color(204, 204, 255));
         jInfoE.setOpaque(false);
-        jInfoE.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jListaJ.setBackground(new java.awt.Color(153, 0, 0));
+        jListaJ.setLayout(new javax.swing.BoxLayout(jListaJ, javax.swing.BoxLayout.LINE_AXIS));
 
         jNombreE.setFont(new java.awt.Font("Rockwell", 0, 20)); // NOI18N
         jNombreE.setText("Nombre Equipo:");
-        jInfoE.add(jNombreE, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
         jCodigoE.setFont(new java.awt.Font("Rockwell", 0, 20)); // NOI18N
         jCodigoE.setText("Codigo:");
-        jInfoE.add(jCodigoE, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 140, -1));
 
         jTipoE.setFont(new java.awt.Font("Rockwell", 0, 20)); // NOI18N
         jTipoE.setText("Tipo de Equipo");
-        jInfoE.add(jTipoE, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
 
         jCantJ.setFont(new java.awt.Font("Rockwell", 0, 20)); // NOI18N
         jCantJ.setText("Cjugadore");
-        jInfoE.add(jCantJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 120, 30));
 
         jAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Asistencias.png"))); // NOI18N
         jAsistencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jInfoE.add(jAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 110, 50));
-        jInfoE.add(jListaJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 470, 160));
 
         jAgregarEstudiante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/AgregarEstudiante.png"))); // NOI18N
         jAgregarEstudiante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -112,7 +158,59 @@ public class ventanaInfoE extends javax.swing.JFrame {
                 jAgregarEstudianteActionPerformed(evt);
             }
         });
-        jInfoE.add(jAgregarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 110, 50));
+
+        jLabel2.setFont(new java.awt.Font("Rockwell", 1, 20)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Información del Equipo");
+
+        javax.swing.GroupLayout jInfoELayout = new javax.swing.GroupLayout(jInfoE);
+        jInfoE.setLayout(jInfoELayout);
+        jInfoELayout.setHorizontalGroup(
+            jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jListaJ, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jInfoELayout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addGroup(jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInfoELayout.createSequentialGroup()
+                        .addGroup(jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCodigoE, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNombreE))
+                        .addGap(19, 19, 19)
+                        .addComponent(jAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInfoELayout.createSequentialGroup()
+                        .addGroup(jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTipoE)
+                            .addComponent(jCantJ, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(jAgregarEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jInfoELayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jInfoELayout.setVerticalGroup(
+            jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInfoELayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInfoELayout.createSequentialGroup()
+                        .addComponent(jCodigoE)
+                        .addGap(16, 16, 16)
+                        .addComponent(jNombreE))
+                    .addGroup(jInfoELayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addGroup(jInfoELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInfoELayout.createSequentialGroup()
+                        .addComponent(jTipoE)
+                        .addGap(16, 16, 16)
+                        .addComponent(jCantJ, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAgregarEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jListaJ, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel1.add(jInfoE, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 470, 380));
 
@@ -181,7 +279,8 @@ public class ventanaInfoE extends javax.swing.JFrame {
     private javax.swing.JLabel jCodigoE;
     private javax.swing.JPanel jInfoE;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jListaJ;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jListaJ;
     private javax.swing.JLabel jNombreE;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jTipoE;

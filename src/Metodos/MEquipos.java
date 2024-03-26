@@ -1,9 +1,11 @@
 package Metodos;
 
 import User.Equipo;
+import User.Jugador;
 import Ventanas.ventanaInfoE;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -97,7 +99,7 @@ public class MEquipos {
 
     
     
-    public List<String> Jugadores(String nombreEquipo) {
+    public List<String> Jugadoress(String nombreEquipo) {
         List<String> nombresCompletos = new ArrayList<>();
         try {
             BufferedReader cursoReader = new BufferedReader(new FileReader("equipo.txt"));
@@ -170,4 +172,103 @@ public class MEquipos {
         }
         return equipos;
     }
+    
+    
+    public void actualizarCantidadJugadores(String codEquipo) {
+        // Nombre del archivo
+        try {
+            File archivo = new File("equipo.txt");
+            File archivoTemporal = new File("equipo_temp.txt");
+            
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivoTemporal));
+            
+            String linea;
+            boolean modificado = false;
+            
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                
+                if (partes.length >= 4 && partes[0].equals(codEquipo)) {
+                    int cantidadJugadores = Integer.parseInt(partes[3]);
+                    cantidadJugadores += 1;
+                    partes[3] = String.valueOf(cantidadJugadores); 
+                    linea = String.join(";", partes);
+                    modificado = true;
+                }
+                
+                bw.write(linea + "\n");
+            }
+            
+            br.close();
+            bw.close();
+            
+            // Reemplazar el archivo original con el archivo temporal si se ha modificado alguna línea
+            if (modificado) {
+                archivo.delete(); // Eliminar el archivo original
+                archivoTemporal.renameTo(archivo); // Renombrar el archivo temporal
+            } else {
+                archivoTemporal.delete(); // Si no se ha modificado, eliminar el archivo temporal
+            }
+            
+        } catch (IOException e) {
+            System.out.println("Error al leer/escribir el archivo: " + e.getMessage());
+        }
+    }
+    
+    public void registrarJugadorenCurso(String codEquipo, String id) {
+        try {
+            File archivo = new File("equipo.txt");
+            FileReader fr = new FileReader(archivo);
+            BufferedReader br = new BufferedReader(fr);
+            
+            String linea;
+            StringBuilder nuevoContenido = new StringBuilder();
+            
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(";");
+                
+                if (partes.length >= 4 && partes[0].equals(codEquipo)) {
+                    // Si el código coincide, agregamos el ID del estudiante
+                    linea = linea + ";" + id;
+                }
+                
+                nuevoContenido.append(linea).append("\n");
+            }
+            
+            fr.close();
+            
+            // Escribir el nuevo contenido de vuelta al archivo
+            FileWriter fw = new FileWriter(archivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(nuevoContenido.toString());
+            bw.close();
+            JOptionPane.showMessageDialog(null, "Archivo actualizado correctamente.");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Archivo no pudo ser actualizado.");
+        }
+    
+    }
+    
+    public List<Jugador> Jugadores(String codigoEquipo) {
+        List<Jugador> jugadoresEquipo = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Jugadores.txt"));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datosJugador = linea.split(",");
+                if (datosJugador.length >= 8 && datosJugador[5].equals(codigoEquipo)) {
+                    // Crear un objeto Jugador y agregarlo a la lista si el código de equipo coincide
+                    Jugador jugador = new Jugador(datosJugador[0], datosJugador[1], datosJugador[2], datosJugador[3], datosJugador[4], datosJugador[5], datosJugador[6], datosJugador[7]);
+                    jugadoresEquipo.add(jugador);
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jugadoresEquipo;
+    }
+    
 }

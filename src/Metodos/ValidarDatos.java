@@ -2,7 +2,6 @@ package Metodos;
 
 import User.Docente;
 import User.Jugador;
-import static User.Jugador.obtenerListaUsuariosExistenteJ;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;

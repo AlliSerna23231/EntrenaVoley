@@ -25,10 +25,10 @@ import javax.swing.JOptionPane;
  * @author allil
  */
 public class ventanaRJugador extends javax.swing.JFrame {
+
     private String rutaFoto;
     private String nombreFoto;
     private String codEquipo;
-
 
     /**
      * Creates new form ventanaRJugador
@@ -44,20 +44,18 @@ public class ventanaRJugador extends javax.swing.JFrame {
         this.codEquipo = codEquipo; // Almacena el código del equipo seleccionado
 
         System.out.println("codexx:" + codEquipo);
-        
+
         MEquipos metodos = new MEquipos();
         String[] datosEquipo = metodos.cargarEquipo(codEquipo);
         if (datosEquipo != null) {
             CodigoE.setText(codEquipo);
         }
-        
-    
+
     }
 
     private ventanaRJugador() {
     }
 
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -279,35 +277,33 @@ public class ventanaRJugador extends javax.swing.JFrame {
         Date fechaNacimiento = txt_jDateChooser.getDate();
         String posición = (String) txt_cbo_Posiciones.getSelectedItem();
         String nivelRendimiento = txt_NRA.getText();
-  
-        
-      
 
-
-        
-       
         //Lista Jugadores
         List<Jugador> listaJugadores = obtenerListaUsuariosExistenteJ();
-        
+
         ValidarDatos validadorJ = new ValidarDatos();
         if (validadorJ.validarDatosJ(nombreCompletoJ, documento, fechaNacimiento, nivelRendimiento, posición, listaJugadores)) {
-            
-             // Formatear la fecha en el formato deseado
+
+            // Formatear la fecha en el formato deseado
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String aNacimiento = sdf.format(fechaNacimiento);
-       
+
             Jugador nuevoJugador = new Jugador(nombreCompletoJ, documento, aNacimiento, nivelRendimiento, posición, codEquipo, rutaFoto, nombreFoto);
 
             GuardarDatos guardadorJ = new GuardarDatos();
             guardadorJ.guardarJugadoresEnArchivo(List.of(nuevoJugador));
-            JOptionPane.showMessageDialog(this, "El jugador: " + validadorJ.retornarNombreCJ(documento) + " ha sido registrado" );
-            
+            JOptionPane.showMessageDialog(this, "El jugador: " + validadorJ.retornarNombreCJ(documento) + " ha sido registrado");
+
+            //Registra J en equipo y actualiza la cantidad de Jugadores
+            MEquipos m = new MEquipos();
+            m.registrarJugadorenCurso(codEquipo, documento);
+            m.actualizarCantidadJugadores(codEquipo);
+
             // Limpiar campos de texto después de guardar
             txt_NombreCJ.setText("");
             txt_Id.setText("");
             txt_NRA.setText("");
-            
-            
+
             // Limpiar el JLabel que muestra la imagen del jugador
             lbl_ImgJugador.setIcon(null);
 
@@ -337,7 +333,7 @@ public class ventanaRJugador extends javax.swing.JFrame {
             File archivoSeleccionado = fileChooser.getSelectedFile();
             rutaFoto = archivoSeleccionado.getAbsolutePath();
             nombreFoto = archivoSeleccionado.getName();
-            
+
             // Mostrar la imagen en el JLabel
             Image mImagen = new ImageIcon(rutaFoto).getImage();
             ImageIcon mIcono = new ImageIcon(mImagen.getScaledInstance(lbl_ImgJugador.getWidth(), lbl_ImgJugador.getHeight(), Image.SCALE_SMOOTH));

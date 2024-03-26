@@ -125,7 +125,8 @@ public class Jugador {
 Juan Perez,12345678,1990,ABC123,Delantero,Alto,/ruta/a/la/foto1.jpg,foto1.jpg
 Maria Rodriguez,98765432,1995,DEF456,Defensa,Medio,/ruta/a/la/foto2.jpg,foto2.jpg
 */
-    
+
+   
     
     
 

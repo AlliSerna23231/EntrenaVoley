@@ -217,7 +217,9 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSeguimientoActionPerformed
 
     private void botonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPerfilActionPerformed
-        System.out.println("Perfil");
+        ventanaPerfil frame = new ventanaPerfil(id);
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botonPerfilActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed

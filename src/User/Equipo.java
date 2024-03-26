@@ -1,32 +1,31 @@
 package User;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 public class Equipo {
+
     private String codigo;
     private String nombreEquipo;
     private String tipoEquipo;
     private int cantidadJugadores;
     private ArrayList<String> listaJugadores; // Lista de jugadores
+    private ArrayList<Jugador> jugadores = new ArrayList<>();
 
     // Constructor
     public Equipo(String codigo, String nombreEquipo, String tipoEquipo, int cantidadJugadores) {
-        this.codigo = null;
+        this.codigo = codigo;
         this.nombreEquipo = nombreEquipo;
-        this.cantidadJugadores = 0;
         this.tipoEquipo = tipoEquipo;
-        // falta agregar el JOptionMesssageInput para agregar el tipo de equipo
+        this.cantidadJugadores = cantidadJugadores; // Inicializa la cantidad de jugadores si se conoce
     }
 
-   
+
     /*public Equipo(String codigoEquipo, String nombreEquipo, int i) {
         this.codigo = codigoEquipo;
         this.nombreEquipo = nombreEquipo;
         this.cantidadJugadores = 0;
     }*/
-
     // Getters y Setters
-
     public String getCodigo() {
         return codigo;
     }
@@ -55,9 +54,13 @@ public class Equipo {
         return cantidadJugadores;
     }
 
-    
     public void incrementarCantidadJugadores() {
         cantidadJugadores++;
+    }
+
+    public void agregarJugador(Jugador jugador) {
+        jugadores.add(jugador);
+        incrementarCantidadJugadores(); // Actualiza la cantidad de jugadores en el equipo
     }
 
     public ArrayList<String> getListaJugadores() {
@@ -67,6 +70,5 @@ public class Equipo {
     public void setListaJugadores(ArrayList<String> listaJugadores) {
         this.listaJugadores = listaJugadores;
     }
-    
-    
+
 }
